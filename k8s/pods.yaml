@@ -1,0 +1,36 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: bar
+  labels:
+    environment: dev
+spec:
+  containers:
+  - name: main
+    image: busybox
+    command: ['sh', '-c', 'date && sleep 360000']
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: baz
+  labels:
+    environment: test
+spec:
+  containers:
+  - name: main
+    image: busybox
+    command: ['sh', '-c', 'date && sleep 360000']
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: quz
+  labels:
+    environment: prod
+spec:
+  containers:
+  - name: main
+    image: busybox
+    command: ['sh', '-c', 'date && sleep 360000']
