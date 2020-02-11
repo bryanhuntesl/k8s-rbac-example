@@ -21,8 +21,20 @@
 
 ### Field selector
 
+#### HTTPie
+
     http http://192.168.64.2:30884/reader/v1/pods fieldSelector==metadata.name=baz
+
+#### CURL
+
+    curl 'http://192.168.64.2:30884/reader/v1/pods?fieldSelector=metadata.name%3Dbaz'
 
 ### Label selector
 
+#### HTTPie
+
     http http://192.168.64.2:30884/reader/v1/pods labelSelector==environment=dev
+
+#### CURL
+
+    curl 'http://192.168.64.2:30884/reader/v1/pods?labelSelector=environment%3Ddev'
