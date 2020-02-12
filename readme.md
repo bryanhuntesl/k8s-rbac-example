@@ -49,4 +49,14 @@ The Makefile contains a number of targets, they are :
 * Install Pipenv (`pip install pipenv`)
 * Reshim Python so `pipenv` is added to your path `asdf reshim python`
 * Install the necessary dependencies (`pipenv install`)
+* Run a shell configured with the necessary dependencies (`pipenv shell`)
 * The docker baseimage (kennethreitz/pipenv) handles all this for you at build/deployment.
+
+## Working on the Python code in Visual Studio Code
+
+VS Code doesn't understand `pipenv` so you will need to run the following to install 
+the necessary dependencies globally (or in the case of asdf locally to it's python install)
+
+```
+pip install bottle requests
+```
