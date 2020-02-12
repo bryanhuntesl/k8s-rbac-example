@@ -1,4 +1,3 @@
----
 apiVersion: v1
 kind: Pod
 metadata:
@@ -8,10 +7,6 @@ metadata:
 spec:
   serviceAccountName: pod-viewer
   containers:
-  - name: main
-    image: velimir/pod-viewer
+  - name: pod-viewer
+    image: esl/pod-viewer
     imagePullPolicy: Always
-    tty: true
-    ports:
-    - containerPort: 8080
-      name: http

@@ -1,0 +1,13 @@
+namespace: rbac-example
+
+commonLabels:
+  category: example
+
+resources:
+  - namespace.yaml
+  - pod-viewer.yaml
+  - pods.yaml
+  - role.yaml
+  - rolebinding.yaml
+  - service.yaml
+  - serviceaccount.yaml

@@ -2,20 +2,24 @@
 
 ## Usage
 
-1. Clone repo
-2. Apply Kubernetes definitions
+### Install prerequisites
+`brew install kustomize kubectl httpie jq`
 
-        % kubectl apply -f k8s
+### Use Makefile targets
 
-3. Get service port
+The Makefile contains a number of targets, they are : 
 
-        % minikube service pod-viewer --url
-        http://192.168.64.2:30884
-
-4. List the pods
-
-        http http://192.168.64.2:30884/reader/v1/pods
-
+* `purge` : delete the namespace 
+* `local_edit` : replace esl/pod-viewer image name with your own
+* `local_deploy` : deploy using 'local' overlay - intended for local deployment
+* `local_dry_run_deploy` : verify the local deployment is syntatically valid
+* `production_purge` : same as `rbac-example` TODO
+* `production_edit_image` : as for local variant above
+* `production_deploy` : as for local variant above 
+* `production_dry_run_deploy` : as for local variant above 
+* `build_image` : build the container image and tag <your username>/pod-viewer:latest
+* `push_image` : push <your username>/pod-viewer:latest to docker hub
+* `port_forward_pod_viewer` : port forward the pod viewer to localhost:8080 - for curl/http commands
 
 ## Using selectors
 
@@ -23,18 +27,26 @@
 
 #### HTTPie
 
-    http http://192.168.64.2:30884/reader/v1/pods fieldSelector==metadata.name=baz
+    http http://localhost:8080/reader/v1/pods fieldSelector==metadata.name=baz
 
 #### CURL
 
-    curl 'http://192.168.64.2:30884/reader/v1/pods?fieldSelector=metadata.name%3Dbaz'
+    curl 'http://localhost:8080/reader/v1/pods?fieldSelector=metadata.name%3Dbaz'
 
 ### Label selector
 
 #### HTTPie
 
-    http http://192.168.64.2:30884/reader/v1/pods labelSelector==environment=dev
+    http http://localhost:8080/reader/v1/pods labelSelector==environment=dev
 
 #### CURL
 
-    curl 'http://192.168.64.2:30884/reader/v1/pods?labelSelector=environment%3Ddev'
+    curl 'http://localhost:8080/reader/v1/pods?labelSelector=environment%3Ddev'
+
+## Working on the Python code locally 
+
+* Install Python using asdf or whatever method is most convenient for you 
+* Install Pipenv (`pip install pipenv`)
+* Reshim Python so `pipenv` is added to your path `asdf reshim python`
+* Install the necessary dependencies (`pipenv install`)
+* The docker baseimage (kennethreitz/pipenv) handles all this for you at build/deployment.

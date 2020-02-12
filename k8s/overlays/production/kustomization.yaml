@@ -1,0 +1,12 @@
+resources:
+- ../../base/
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+patchesStrategicMerge:
+- image-pull-policy.yaml
+
+images:
+- name: esl/pod-viewer
+  newName: bryanhuntesl/pod-viewer
+  newTag: latest

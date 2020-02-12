@@ -1,0 +1,25 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-viewer
+  labels:
+    app: pod-viewer
+spec:
+  serviceAccountName: pod-viewer
+  containers:
+  - name: pod-viewer
+    image: esl/pod-viewer
+    # imagePullPolicy: IfNotPresent
+    tty: true
+    imagePullPolicy: Never
+    ports:
+    - containerPort: 8080
+      name: http
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "250m"
+      limits:
+        memory: "128Mi"
+        cpu: "500m"

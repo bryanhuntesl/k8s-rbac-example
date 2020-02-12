@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 
-from bottle import route, run, response, request
+from bottle import route, redirect, run, response, request
 import json
 import requests
 
+@route('/')
+def root():
+    redirect('/reader/v1/pods')
 
 @route('/reader/v1/pods')
 def index():
