@@ -11,8 +11,12 @@ spec:
   - name: pod-viewer
     image: esl/pod-viewer
     # imagePullPolicy: IfNotPresent
-    tty: true
     imagePullPolicy: Never
+    env:
+      - name: MY_POD_NAMESPACE
+        valueFrom:
+          fieldRef:
+            fieldPath: metadata.namespace
     ports:
     - containerPort: 8080
       name: http
