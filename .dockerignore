@@ -1,7 +1,10 @@
 .dockerignore
 .git
+.gitignore
 .vscode
 Dockerfile
 Makefile
 k8s
 readme.md
+_build
+deps
