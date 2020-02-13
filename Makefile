@@ -2,15 +2,17 @@
 
 REGISTRY_HANDLE ?= $(shell whoami)
 # tail to avoid capturing the output from compilation
-APP_NAME ?= $(shell mix app.name | tail -n 1)
-APP_VSN ?= $(shell mix app.version | tail -n 1)
-IMAGE_TAG ?= $(REGISTRY_HANDLE)/$(APP_NAME):latest
+APP_NAME ?= pod_viewer
 BUILD ?= $(shell git rev-parse --short HEAD)
+IMAGE_TAG ?= $(REGISTRY_HANDLE)/$(APP_NAME):latest
+IMAGE_TAG_GIT ?= $(REGISTRY_HANDLE)/$(APP_NAME):$(BUILD)
 
-deps:
+default: compile
+
+deps: 
 	mix deps.get
 
-compile:
+compile: deps
 	mix compile
 
 purge:
@@ -40,8 +42,7 @@ production_dry_run_deploy:
 build_image:
 	docker build \
 		--build-arg APP_NAME=$(APP_NAME) \
-		--build-arg APP_VSN=$(APP_VSN) \
-		-t $(IMAGE_TAG) .
+		-t $(IMAGE_TAG) -t $(IMAGE_TAG_GIT) .
 
 push_image:
 	docker push $(IMAGE_TAG)
