@@ -1,7 +1,6 @@
 .PHONY: deploy_production edit_image build_image push_image local_dry_run_deploy production_dry_run_deploy local_purge production_purge app deps compile
 
 REGISTRY_HANDLE ?= $(shell whoami)
-# tail to avoid capturing the output from compilation
 APP_NAME ?= pod_viewer
 BUILD ?= $(shell git rev-parse --short HEAD)
 IMAGE_TAG ?= $(REGISTRY_HANDLE)/$(APP_NAME):latest
