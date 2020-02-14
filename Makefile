@@ -33,7 +33,7 @@ production_purge:
 	kubectl delete namespaces rbac-example  
 
 production_edit_image: check_registry_handle
-	cd k8s/overlays/production; kustomize edit set image bryanhuntesl/pod-viewer=$(IMAGE_TAG)
+	cd k8s/overlays/production; kustomize edit set image esl/pod-viewer=$(IMAGE_TAG)
 
 production_deploy: production_edit_image
 	kustomize build k8s/overlays/production | kubectl apply -f -
