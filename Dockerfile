@@ -71,4 +71,4 @@ COPY --from=builder /opt/built .
 
 EXPOSE 8080
 
-CMD trap 'exit' INT; /opt/app/bin/pod_viewer start
+CMD /opt/app/bin/pod_viewer start
