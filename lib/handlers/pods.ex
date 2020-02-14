@@ -31,11 +31,16 @@ defmodule PodViewer.Handlers.Pods do
   defp list_pods(conn), do: list_pods(conn, System.get_env("MY_POD_NAMESPACE"))
   defp list_pods(conn, namespace) do
     k8s_conn = K8s.Conn.from_service_account(:default)
-    # TODO: add an option to provide label selector
     operation = K8s.Client.list("v1", "pods", namespace: namespace)
-    # TODO: handle errors (non 200 responses)
-    {:ok, resp} = K8s.Client.run(operation, k8s_conn)
-    body = Jason.encode!(resp, pretty: true)
-    send_resp(conn, 200, body)
+    conn = fetch_query_params(conn)
+    params = Map.merge(conn.query_params, %{"pretty" => "true"})
+    {status_code, body} =
+      case K8s.Client.run(operation, k8s_conn, [params: params]) do
+        {:ok, resp} ->
+          {200, Jason.encode!(resp, pretty: true)}
+        {:error, %HTTPoison.Response{status_code: status_code, body: body}} ->
+          {status_code, body}
+      end
+    send_resp(conn, status_code, body)
   end
 end
